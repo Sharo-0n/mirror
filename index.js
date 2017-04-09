@@ -20,14 +20,3 @@ document.getElementById("snap").addEventListener("click", function() {
 
 
 });
-
-var item = document.getElementByClassName("picper");
-if (item) {
-    if(item.className=='hidden'){
-        item.className = 'unhidden' ;
-        clickedButton.value = 'hide'
-    }else{
-        item.className = 'hidden';
-        clickedButton.value = 'unhide'
-    }
-}}
