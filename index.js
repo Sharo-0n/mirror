@@ -26,7 +26,7 @@ if (annyang) {
   var commands = {
     'capture': function() {
       context.drawImage(video, 0, 0, 640, 480);
-      
+      document.getElementById('appear').style.display = 'block';
     }
   };
 
