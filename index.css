@@ -17,6 +17,13 @@ h1{
     font-family: 'Alegreya Sans SC', sans-serif;
     letter-spacing: 30px;
 }
+
+#chatBot{
+    width: 500px;
+    background-color: orange;
+    border-radius: 25px;
+}
+
 #rlogo{
     float: left;
     width: 5%;
@@ -27,8 +34,8 @@ h1{
     display: flex;
     flex-direction: column;
     width: 50%;
-/*    margin-right: 25%;*/
-    margin-left: 20%;
+    margin-right: 5%;
+    margin-left: 5%;
     position:relative;
 }
 #main {
@@ -39,7 +46,7 @@ h1{
     display: fled;
     felx-direction: column;
     background-color: #FFA07A;
-    margin-left: 10%;
+    /*margin-left: 10%;*/
     width: 15%;
     border-radius: 25px;
 }

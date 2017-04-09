@@ -29,13 +29,13 @@ if (annyang) {
       document.getElementById('appear').style.display = 'block';
     }
     'red dress': function() {
-        window.open("./reddress.html","_self")
+        window.open("./reddress.html","_self");
     }
     'blue shirt': function() {
-        window.open("./blueShirt.html","_self")
+        window.open("./blueShirt.html","_self");
     }
     'grey shirt': function() {
-        window.open("./greyShirt.html","_self")
+        window.open("./greyShirt.html","_self");
     }
   };
 
