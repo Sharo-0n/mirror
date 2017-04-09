@@ -20,3 +20,19 @@ document.getElementById("snap").addEventListener("click", function() {
 
 
 });
+
+if (annyang) {
+  // Let's define our first command. First the text we expect, and then the function it should call
+  var commands = {
+    'capture': function() {
+      context.drawImage(video, 0, 0, 640, 480);
+      
+    }
+  };
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+
+  // Start listening. You can call this here, or attach this call to an event, button, etc.
+  annyang.start();
+}
