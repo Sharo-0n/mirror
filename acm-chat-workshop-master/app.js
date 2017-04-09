@@ -9,6 +9,8 @@ var cognitiveservices = require('botbuilder-cognitiveservices');
 //
 
 var concepts = ['Car', 'Campfire', 'Windmill', 'Hammer'];
+var clothes = new HashTable({blueshirt: 1, reddress: 2, greyshirt: 3});
+//var website = '';
 
 // Connection to Microsoft Bot Framework
 const connector = new builder.ChatConnector({
@@ -39,12 +41,13 @@ bot.dialog('/greeting', (session) => {
   session.replaceDialog('/intents');
 });
 bot.dialog('/intents', intents);
-intents.matches(/^Hi/i, [
+/*intents.matches(/^Hi/i, [
     function(session){
         session.replaceDialog('/');
     }
-]);
-intents.matches(/^Can I try on some clothing/i, [
+]);*/
+
+intents.matches(/^(.*)I try(.*)something(.*)/i, [
     /*function (session) {
         session.beginDialog('/profile');
     },
@@ -55,27 +58,64 @@ intents.matches(/^Can I try on some clothing/i, [
         builder.Prompts.text(session, 'Absolutely! What would you like to try on?');
     },
     function (session, results) {
-        session.send("Check it out, you look amazing!");
-        //var clothing = results.response.matches(/^Would I look good in a(.*)$/gm);
-        //console.log("Hello");
+        
         var clothing = results.response;
         clothing = clothing.replace(/\s/g, '');
-        //clothing = clothing.replace(/?/g, '');
-        //console.log("World");
-        userData.website = "https://www.google.com/".concat(clothing);
-        //session.send('%s', website);
-        //window.open(website);
-        //session.send("google.com/".concat('%s'), clothing);
-        //console.log("Yo");
-        //session.send("%s", );
-        createClothingCard(session)
+        clothing = clothing.toLowerCase();
+        if (clothes.hasItem(clothing)){
+            //session.send('if');
+            session.send("Check it out, you look amazing!");
+            var website = 'https://mirroar.herokuapp.com/';
+            if (clothing === 'reddress'){
+                website = website.concat(clothing);
+            }
+            else if (clothing === 'blueshirt'){
+                website = website.concat('blueShirt');
+            }
+            else if (clothing === 'greyshirt'){
+                website = website.concat('greyShirt');
+            }
+            website = website.concat('.html');
+            var card = createClothingCard(session, website);
+            var msg = new builder.Message(session).addAttachment(card);
+            session.send(msg);
+        }
+        else {
+            session.send("You can choose from these options:");
+            var card = createChoiceCard(session);
+            var msg = new builder.Message(session).addAttachment(card);
+            session.send(msg);
+            //session.send('else');
+        }
+        //session.endDialog();
     }
 ]);
-/*bot.dialog('/answer', (session) =>{
-    session.send("Take a look, you look amazing!");
-    session.endDialog();
-})*/
-/*bot.dialog('/third', (session) => {
+
+bot.beginDialogAction('blueshirt', '/blueshirt');
+bot.dialog('/blueshirt', (session) =>{
+            var website = 'https://mirroar.herokuapp.com/blueShirt.html';
+            var card = createClothingCard(session, website);
+            var msg = new builder.Message(session).addAttachment(card);
+            session.send(msg);
+            session.replaceDialog('/intents');
+});
+bot.beginDialogAction('reddress', '/reddress');
+bot.dialog('/reddress', (session) =>{
+            var website = 'https://mirroar.herokuapp.com/reddress.html';
+            var card = createClothingCard(session, website);
+            var msg = new builder.Message(session).addAttachment(card);
+            session.send(msg);
+            session.replaceDialog('/intents');
+});
+bot.beginDialogAction('greyshirt', '/greyshirt');
+bot.dialog('/greyshirt', (session) =>{
+            var website = 'https://mirroar.herokuapp.com/greyShirt.html';
+            var card = createClothingCard(session, website);
+            var msg = new builder.Message(session).addAttachment(card);
+            session.send(msg);
+            session.replaceDialog('/intents');
+});
+/*bot.dialog('/yes', (session) => {
   var card = createChoiceCard(session);
   var msg = new builder.Message(session).addAttachment(card);
   session.send(msg);
@@ -96,16 +136,16 @@ bot.dialog('/ready', (session) => {
   session.endConversation();
 
 });*/
-function createClothingCard(session) {
+function createClothingCard(session, website) {
     return new builder.HeroCard(session)
-        .title('BotFramework Clothing Card')
-        .subtitle('Your bots — wherever your users are talking')
-        .text('Build and connect intelligent bots to interact with your users naturally wherever they are, from text/sms to Skype, Slack, Office 365 mail and other popular services.')
-        /*.images([
-            builder.CardImage.create(session, 'https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg')
-        ])*/
+        .title('Mirroar')
+        .subtitle('Your favorite Mirror')
+        .text('See how clothes look on you with just a button!')
+        .images([
+            builder.CardImage.create(session, 'http://imgh.us/logo_161.jpg')
+        ])
         .buttons([
-            builder.CardAction.openUrl(session, userData.website, 'Get Started')
+            builder.CardAction.openUrl(session, website, 'Try it on!')
         ]);
 }
 
@@ -113,8 +153,9 @@ function createClothingCard(session) {
 function createChoiceCard(session){
 	return new builder.HeroCard(session)
         .buttons([
-            builder.CardAction.dialogAction(session, 'ready', '', 'I have an idea!'),
-            builder.CardAction.dialogAction(session, 'choice', '', 'Suggest me one!')
+            builder.CardAction.dialogAction(session, 'blueshirt', '', 'Blue Shirt'),
+            builder.CardAction.dialogAction(session, 'reddress', '', 'Red Dress'),
+            builder.CardAction.dialogAction(session, 'greyshirt', '', 'Grey Shirt')
         ]);
 }
 
@@ -159,6 +200,88 @@ function createWordCard(session, title, pictureLink) {
             builder.CardAction.openUrl(session, pictureLink, title)
         ]);
         
+}
+function HashTable(obj)
+{
+    this.length = 0;
+    this.items = {};
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            this.items[p] = obj[p];
+            this.length++;
+        }
+    }
+
+    this.setItem = function(key, value)
+    {
+        var previous = undefined;
+        if (this.hasItem(key)) {
+            previous = this.items[key];
+        }
+        else {
+            this.length++;
+        }
+        this.items[key] = value;
+        return previous;
+    }
+
+    this.getItem = function(key) {
+        return this.hasItem(key) ? this.items[key] : undefined;
+    }
+
+    this.hasItem = function(key)
+    {
+        return this.items.hasOwnProperty(key);
+    }
+   
+    this.removeItem = function(key)
+    {
+        if (this.hasItem(key)) {
+            previous = this.items[key];
+            this.length--;
+            delete this.items[key];
+            return previous;
+        }
+        else {
+            return undefined;
+        }
+    }
+
+    this.keys = function()
+    {
+        var keys = [];
+        for (var k in this.items) {
+            if (this.hasItem(k)) {
+                keys.push(k);
+            }
+        }
+        return keys;
+    }
+
+    this.values = function()
+    {
+        var values = [];
+        for (var k in this.items) {
+            if (this.hasItem(k)) {
+                values.push(this.items[k]);
+            }
+        }
+        return values;
+    }
+
+    this.each = function(fn) {
+        for (var k in this.items) {
+            if (this.hasItem(k)) {
+                fn(k, this.items[k]);
+            }
+        }
+    }
+
+    this.clear = function()
+    {
+        this.items = {}
+        this.length = 0;
+    }
 }
 
 
