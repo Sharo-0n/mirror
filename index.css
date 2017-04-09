@@ -4,6 +4,14 @@ body{
 	font-family: 'Quicksand', sans-serif;
 	font-weight: Thin;
 }
+h1{
+    text-align: center;
+}
+#vid_container{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
 #container {
     margin: 0px auto;
     width: 500px;
