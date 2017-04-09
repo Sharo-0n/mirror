@@ -17,6 +17,7 @@ h2{
     width: 50%;
 /*    margin-right: 25%;*/
     margin-left: 20%;
+    position:relative;
 }
 #main {
     display: flex;
