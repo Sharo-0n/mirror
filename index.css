@@ -14,14 +14,11 @@ h1{
     margin-right: 25%;
     margin-left: 25%;
 }
-#container {
-    margin: 0px auto;
-    width: 500px;
-    height: 375px;
-    border: 10px #333 solid;
+#main {
+    display: flex;
+    flex-direction: row;
 }
-#videoElement {
-    width: 500px;
-    height: 375px;
-    background-color: #666;
+#clothes {
+    display: fled;
+    felx-direction: column;
 }
