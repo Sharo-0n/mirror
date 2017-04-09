@@ -28,6 +28,9 @@ if (annyang) {
       context.drawImage(video, 0, 0, 640, 480);
       document.getElementById('appear').style.display = 'block';
     }
+    'red dress': function() {
+      window.open("/reddress.html","_self");
+    }
   };
 
   // Add our commands to annyang
