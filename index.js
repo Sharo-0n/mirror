@@ -28,6 +28,15 @@ if (annyang) {
       context.drawImage(video, 0, 0, 640, 480);
       document.getElementById('appear').style.display = 'block';
     }
+    'red dress': function() {
+        window.open("./reddress.html","_self")
+    }
+    'blue shirt': function() {
+        window.open("./blueShirt.html","_self")
+    }
+    'grey shirt': function() {
+        window.open("./greyShirt.html","_self")
+    }
   };
 
   // Add our commands to annyang
