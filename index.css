@@ -1,18 +1,22 @@
 body{
-	background-color: black;
-	color: white;
+	background-color: white;
+	color: grey;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: Thin;
 }
-h1{
+h1, h2{
     text-align: center;
+    font-weight: bold;
+}
+h2{
+    color: white;
 }
 #vid_container{
     display: flex;
     flex-direction: column;
     width: 50%;
-    margin-right: 25%;
-    margin-left: 25%;
+/*    margin-right: 25%;*/
+    margin-left: 20%;
 }
 #main {
     display: flex;
@@ -21,4 +25,28 @@ h1{
 #clothes {
     display: fled;
     felx-direction: column;
+    background-color: #FFA07A;
+    margin-left: 10%;
+    width: 15%;
+    border-radius: 25px;
+}
+.icon{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 25px;
+    background-color: white;
+    color: ;
+}
+ .icon img{
+    margin-top: 5%;
+ }
+ #navbar-toggle-cbox {
+  display:none
+}
+#navbar-toggle-cbox:checked ~ .collapse {
+    display: block;
 }
