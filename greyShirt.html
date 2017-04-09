@@ -11,17 +11,25 @@
 			left:37%;
 			top:30%;
 		}
+		#appear{
+			position:absolute;
+			width: 17%;
+			z-index: +1;
+			left:37%;
+			top:90%;
+			display: none;
+		}
 	</style>
 </head>
 <body>
 	<h1>Mirroar</h1>
 	<img id="greyshirt" src="images/greyshirt.png">
-	<img id="greyshirt" class="picperf" src="images/greyshirt.png">
+	<img id="appear" src="images/greyshirt.png">
 
 	<div id="main">
 		<div id="vid_container">
 			<video id="video" width="640" height="480" autoplay></video>
-			<button id="snap" onclick="document.getElementById('hidden').style.display = 'block';">Snap Photo</button>
+			<button id="snap" onclick="document.getElementById('appear').style.display = 'block';">Snap Photo</button>
 			<canvas id="canvas" width="640" height="480"></canvas>
 		</div>
 		<div id="clothes">
