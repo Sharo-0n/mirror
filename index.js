@@ -17,4 +17,17 @@ var video = document.getElementById('video');
 // Trigger photo take
 document.getElementById("snap").addEventListener("click", function() {
     context.drawImage(video, 0, 0, 640, 480);
+
+
 });
+
+var item = document.getElementByClassName("picper");
+if (item) {
+    if(item.className=='hidden'){
+        item.className = 'unhidden' ;
+        clickedButton.value = 'hide'
+    }else{
+        item.className = 'hidden';
+        clickedButton.value = 'unhide'
+    }
+}}
